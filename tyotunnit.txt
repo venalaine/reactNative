@@ -1,1 +1,1 @@
-osa a: 0,5h
+osa a: 1h
