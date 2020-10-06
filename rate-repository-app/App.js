@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Muutetaan renderöitävää tekstiä!!!.</Text>
+      <Text>I just added linting thing!</Text>
       <StatusBar style="auto" />
     </View>
   );
