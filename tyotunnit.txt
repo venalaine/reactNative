@@ -1,1 +1,2 @@
 osa a: 1,5h
+osa b: 1h
