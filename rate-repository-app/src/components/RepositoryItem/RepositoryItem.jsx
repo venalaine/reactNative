@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
 const RepositoryItem = ({ item }) => {
     return (
         <View style={styles.container}>
-            <BasicInfo avatar={item.ownerAvatarUrl} fullName={item.fullName} description={item.description}/>
-            <LanguageTag language={item.language}/>
-            <Statistics stars={item.stargazersCount} forks={item.forksCount} reviews={item.reviewCount} rating={item.ratingAverage}/>
+            <BasicInfo avatar={item.ownerAvatarUrl} fullName={item.fullName} description={item.description} />
+            <LanguageTag language={item.language} />
+            <Statistics stars={item.stargazersCount} forks={item.forksCount} reviews={item.reviewCount} rating={item.ratingAverage} />
         </View>
     );
 };

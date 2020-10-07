@@ -1,12 +1,13 @@
 import React from 'react';
 import Text from './Text';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Link } from 'react-router-native';
 
-const AppBarTab = ({ appBarText, onPress }) => {
+const AppBarTab = ({ appBarText, linkUrl }) => {
     return (
-            <TouchableWithoutFeedback onPress={onPress}>
-                <Text color="textAppBar" fontSize="subheading" fontWeight="bold">{appBarText}</Text>
-            </TouchableWithoutFeedback>
+        <Link to={linkUrl} component={TouchableOpacity} activeOpacity={0.8} >
+            <Text color="textAppBar" fontSize="subheading" fontWeight="bold">{appBarText}</Text>
+        </Link>
     );
 };
 
