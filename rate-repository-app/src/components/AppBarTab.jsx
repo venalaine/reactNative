@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from './Text';
-import { TouchableOpacity, TouchableHighlight } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Link } from 'react-router-native';
 
 const AppBarTab = ({ appBarText, linkUrl }) => {
