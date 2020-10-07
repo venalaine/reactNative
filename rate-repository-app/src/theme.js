@@ -3,8 +3,11 @@ const theme = {
         textAppBar: '#ffffff',
         textPrimary: '#24292e',
         textSecondary: '#586069',
+        textLanguage: 'white',
         primary: '#0366d6',
-        appBarBack: '#24292e',
+        appBarBackGround: '#24292e',
+        mainBackGround: '#e1e4e8',
+        listItem: 'white'
     },
     fontSizes: {
         body: 14,

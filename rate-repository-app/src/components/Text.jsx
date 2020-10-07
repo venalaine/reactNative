@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     colorTextAppBar: {
         color: theme.colors.textAppBar,
     },
+    colorTextLanguageTag: {
+        backgroundColor: theme.colors.primary,
+        color: '#ffffff',
+        borderRadius: 4,
+        padding: 5,
+    },
     fontSizeSubheading: {
         fontSize: theme.fontSizes.subheading,
     },
@@ -33,6 +39,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
         color === 'textSecondary' && styles.colorTextSecondary,
         color === 'primary' && styles.colorPrimary,
         color === 'textAppBar' && styles.colorTextAppBar,
+        color === 'colorTextLanguageTag' && styles.colorTextLanguageTag,
         fontSize === 'subheading' && styles.fontSizeSubheading,
         fontWeight === 'bold' && styles.fontWeightBold,
         style,
