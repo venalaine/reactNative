@@ -10,11 +10,19 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   errorText: {
     marginTop: 5,
+    color: theme.colors.validationError,
   },
   textInputStyle: {
     padding: 15,
     backgroundColor: 'white',
     borderColor: theme.colors.textSecondary,
+    borderWidth: 1,
+    borderRadius: 4,
+  },
+  textInputErrorStyle: {
+    padding: 15,
+    backgroundColor: 'white',
+    borderColor: theme.colors.validationError,
     borderWidth: 1,
     borderRadius: 4,
   }
@@ -27,7 +35,7 @@ const FormikTextInput = ({ name, ...props }) => {
   return (
     <>
       <TextInput
-        style={styles.textInputStyle}
+        style={!showError ? styles.textInputStyle : styles.textInputErrorStyle}
         onChangeText={value => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
         value={field.value}
