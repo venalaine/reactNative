@@ -6,6 +6,7 @@ import SignIn from './SignIn';
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
 
+
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
@@ -15,11 +16,12 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+
     return (
         <View style={styles.container}>
             <AppBar />
             <Switch>
-                <Route path="/sign">
+                <Route path="/signin">
                     <SignIn />
                 </Route>
                 <Route path="/" exact>
