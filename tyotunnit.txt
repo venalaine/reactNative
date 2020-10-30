@@ -1,4 +1,4 @@
 osa a: 1,5h
 osa b: 12,5h
 osa c: 18h
-osa d: 2h
+osa d: 3,25h
