@@ -8,6 +8,7 @@ import { GET_AUTHORIZED_USER } from '../graphlql/queries';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import { Link } from 'react-router-native';
 import { useApolloClient } from '@apollo/client';
+import { useHistory } from 'react-router-native';
 
 
 const styles = StyleSheet.create({
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
 const AppBar = () => {
     const authStorage = useContext(AuthStorageContext);
     const apolloClient = useApolloClient();
+    const history = useHistory();
 
     const token = authStorage.getAccessToken();
 
@@ -41,6 +43,7 @@ const AppBar = () => {
     const handleLogOut = async () => {
         await authStorage.removeAccessToken();
         apolloClient.resetStore();
+        history.push('/');
     };
 
     return (

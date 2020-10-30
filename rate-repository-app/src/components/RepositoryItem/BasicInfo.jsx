@@ -30,8 +30,8 @@ const BasicInfo = ({ avatar, fullName, description }) => {
                 }} />
             </View>
             <View style={styles.containerInfo}>
-                <Text fontWeight={'bold'}>{fullName}</Text>
-                <Text color={'textSecondary'}>{description}</Text>
+                <Text testID="fullName" fontWeight={'bold'}>{fullName}</Text>
+                <Text testID="description" color={'textSecondary'}>{description}</Text>
             </View>
         </View>
 
