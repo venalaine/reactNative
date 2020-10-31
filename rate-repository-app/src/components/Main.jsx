@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList/RepositoryList';
+import RepositoryItem from './RepositoryItem/RepositoryItem';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
 import theme from '../theme';
@@ -23,6 +24,9 @@ const Main = () => {
             <Switch>
                 <Route path="/signin">
                     <SignIn />
+                </Route>
+                <Route path="/repositories/:id">
+                    <RepositoryItem singleView={true} />
                 </Route>
                 <Route path="/" exact>
                     <RepositoryList />
