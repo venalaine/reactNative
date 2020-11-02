@@ -25,6 +25,15 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 5,
     },
+    colorTextRating: {
+        color: theme.colors.primary,
+        borderColor: theme.colors.primary,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        borderWidth: 2,
+        textAlign: "center"
+    },
     fontSizeSubheading: {
         fontSize: theme.fontSizes.subheading,
     },
@@ -40,6 +49,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
         color === 'primary' && styles.colorPrimary,
         color === 'textAppBar' && styles.colorTextAppBar,
         color === 'colorTextLanguageTag' && styles.colorTextLanguageTag,
+        color === 'colorTextRating' && styles.colorTextRating,
         fontSize === 'subheading' && styles.fontSizeSubheading,
         fontWeight === 'bold' && styles.fontWeightBold,
         style,

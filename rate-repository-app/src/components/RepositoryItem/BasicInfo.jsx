@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const BasicInfo = ({ avatar, fullName, description }) => {
+    
     return (
         <View style={styles.containerMain}>
             <View>
