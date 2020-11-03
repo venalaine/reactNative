@@ -53,6 +53,7 @@ const AppBar = () => {
                 { ((!loading) && data.authorizedUser !== null) ? <Link to="/review" component={AppBarTab}>Create a Review</Link> : null }
                 { ((!loading) && data.authorizedUser === null) ? <Link to="/signin" component={AppBarTab}>Sign in</Link> :
                 <Link to="/signout" component={AppBarTab} onPress={handleLogOut}>Sign out</Link> }
+                { ((!loading) && data.authorizedUser === null) ? <Link to="/signup" component={AppBarTab}>Sign up</Link> : null }
             </ScrollView>
         </View>
     );

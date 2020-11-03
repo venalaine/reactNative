@@ -4,6 +4,7 @@ import RepositoryList from './RepositoryList/RepositoryList';
 import RepositoryItem from './RepositoryItem/RepositoryItem';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import AddReview from './AddReview';
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
@@ -26,6 +27,9 @@ const Main = () => {
             <Switch>
                 <Route path="/signin">
                     <SignIn />
+                </Route>
+                <Route path="/signup">
+                    <SignUp />
                 </Route>
                 <Route path="/repositories/:id">
                     <RepositoryItem singleView={true} />
