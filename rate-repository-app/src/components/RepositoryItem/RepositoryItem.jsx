@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 });
 
 const RenderRepository = ({ repository }) => {
-
+  
     const handleButtonPress = () => {
         Linking.openURL(repository.url);
     };
@@ -68,7 +68,7 @@ const RenderReviews = ({ review }) => {
                     <Text color={'colorTextRating'}>{review.node.rating}</Text>
                 </View>
                 <View style={styles.containerRevies}>
-                    <Text style={styles.reviewTextObject} fontWeight={'bold'}>{review.node.user.username}</Text>
+                    <Text fontWeight={'bold'}>{review.node.user.username}</Text>
                     <Text style={styles.reviewTextObject}>{format(new Date(review.node.createdAt), 'MM.dd.yyyy')}</Text>
                     <Text style={styles.reviewTextObject}>{review.node.text}</Text>
                 </View>
@@ -82,6 +82,7 @@ const SingleRepoItem = () => {
 
     const { loading: repoLoading, data: repoData } = useQuery(GET_REPOSITORY, {
         variables: { id: id },
+        fetchPolicy: 'cache-and-network',
     });
 
     const { loading: reviewLoading, data: reviewData } = useQuery(GET_REVIEWS, {

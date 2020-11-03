@@ -4,8 +4,10 @@ import RepositoryList from './RepositoryList/RepositoryList';
 import RepositoryItem from './RepositoryItem/RepositoryItem';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
+import AddReview from './AddReview';
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
+
 
 
 const styles = StyleSheet.create({
@@ -27,6 +29,9 @@ const Main = () => {
                 </Route>
                 <Route path="/repositories/:id">
                     <RepositoryItem singleView={true} />
+                </Route>
+                <Route path="/review">
+                    <AddReview />
                 </Route>
                 <Route path="/" exact>
                     <RepositoryList />
