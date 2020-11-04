@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import { CREATE_REVIEW } from '../graphlql/mutations';

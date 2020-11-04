@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { CREATE_USER } from '../graphlql/mutations';
 import useSignIn from '../hooks/useSignIn';
 import { View, Button, StyleSheet } from 'react-native';
