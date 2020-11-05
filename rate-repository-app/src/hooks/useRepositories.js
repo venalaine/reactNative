@@ -1,45 +1,43 @@
 import { GET_REPOSITORIES } from '../graphlql/queries';
 import { useQuery } from '@apollo/react-hooks';
 
-const useRepositories = ( filter, debouncedSearch ) => {
+const useRepositories = (variables) => {
 
-  if (filter === 'latest') {
+  const handleFetchMore = () => {
+    const canFetchMore =
+      !loading && data && data.repositories.pageInfo.hasNextPage;
 
-    const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-      fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'CREATED_AT', orderDirection: 'DESC', searchKeyword: debouncedSearch }
-      // Other options
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      query: GET_REPOSITORIES,
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const nextResult = {
+          repositories: {
+            ...fetchMoreResult.repositories,
+            edges: [
+              ...previousResult.repositories.edges,
+              ...fetchMoreResult.repositories.edges,
+            ],
+          },
+        };
+
+        return nextResult;
+      },
     });
+  };
 
-    return  { repositories: data ? data.repositories : undefined, loading, error };
+  const { data, error, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
+    variables
+  });
 
-  }
-
-  if (filter === 'highestRated') {
-
-    const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-      fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC', searchKeyword: debouncedSearch }
-      // Other options
-    });
-
-    return  { repositories: data ? data.repositories : undefined, loading, error };
-
-  }
-
-  if (filter === 'lowestRated') {
-
-    const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-      fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC', searchKeyword: debouncedSearch }
-      // Other options
-    });
-
-    return  { repositories: data ? data.repositories : undefined, loading, error };
-
-  }
-
-  return  null;
+  return { repositories: data ? data.repositories : undefined, fetchMore: handleFetchMore, loading, error, ...result };
 
 };
 

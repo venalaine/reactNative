@@ -6,10 +6,9 @@ import LanguageTag from './LanguageTag';
 import Statistics from './Statistics';
 import theme from '../../theme';
 import { useParams } from 'react-router-native';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_REPOSITORY, GET_REVIEWS } from '../../graphlql/queries';
 import * as Linking from 'expo-linking';
 import { format } from 'date-fns';
+import useRepository from '../../hooks/useRepository';
 
 const styles = StyleSheet.create({
     container: {
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     },
     repositorySeparator: {
         height: 10,
-        backgroundColor: theme.colors.mainBackGround, 
+        backgroundColor: theme.colors.mainBackGround,
     },
     containerRevies: {
         flexDirection: 'column',
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 const RenderRepository = ({ repository }) => {
-  
+
     const handleButtonPress = () => {
         Linking.openURL(repository.url);
     };
@@ -54,7 +53,7 @@ const RenderRepository = ({ repository }) => {
             <View style={{ padding: 20 }}>
                 <Button title="Open in GitHub" onPress={handleButtonPress}></Button>
             </View>
-            <View style={styles.repositorySeparator}/>
+            <View style={styles.repositorySeparator} />
         </View>
     );
 };
@@ -80,28 +79,43 @@ const RenderReviews = ({ review }) => {
 const SingleRepoItem = () => {
     const id = useParams().id;
 
+    const { repository, loading, fetchMore } = useRepository({ id, first: 10 });
+ 
+    // Tälle ei ollut aiemmin hooksia, mutta tajusin, että olis syytä ehkä olla. Jätin vielä tähän, jos pitääkin palata.
+    /*
     const { loading: repoLoading, data: repoData } = useQuery(GET_REPOSITORY, {
         variables: { id: id },
         fetchPolicy: 'cache-and-network',
     });
-
+    
     const { loading: reviewLoading, data: reviewData } = useQuery(GET_REVIEWS, {
-        variables: { id: id },
+        variables: { id: id, first: 2 },
     });
 
     if (repoLoading || reviewLoading) {
         return null;
     }
+    */
+
+    if (loading) {
+        return null;
+    }
 
     const ItemSeparator = () => <View style={styles.separator} />;
 
+    const onEndReach = () => {
+        fetchMore();
+    };
+
     return (
         <FlatList
-            data={reviewData.repository.reviews.edges}
+            data={repository.reviews.edges}
             ItemSeparatorComponent={ItemSeparator}
             renderItem={({ item }) => <RenderReviews review={item} />}
             keyExtractor={({ node: { id } }) => id}
-            ListHeaderComponent={() => <RenderRepository repository={repoData.repository} />}
+            ListHeaderComponent={() => <RenderRepository repository={repository} />}
+            onEndReached={onEndReach}
+            onEndReachedThreshold={0.5}
         />
     );
 

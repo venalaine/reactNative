@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-  query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String){
-      repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword){
+  query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String, $first: Int, $after: String){
+      repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword, first: $first, after: $after){
         edges{
           node{
             id
@@ -16,6 +16,13 @@ export const GET_REPOSITORIES = gql`
             reviewCount 
             ratingAverage
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          totalCount
+          hasNextPage
         }
       }
     }
@@ -30,7 +37,7 @@ export const GET_AUTHORIZED_USER = gql`
   }`;
 
 export const GET_REPOSITORY = gql`
-  query findRepository($id: ID!){
+  query findRepository($id: ID!, $first: Int, $after: String){
     repository(id: $id) {
       id
       fullName
@@ -43,16 +50,39 @@ export const GET_REPOSITORY = gql`
       forksCount 
       reviewCount 
       ratingAverage
+      reviews(first: $first, after: $after) {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            repositoryId
+            user {
+              id
+              username
+            }
+          }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          totalCount
+          hasNextPage
+        }
+      }
     }
   }
 `;
 
+// Tämä jäikin nyt tarpeettomaksi, kun tajusinkin tehtävässä 25, että reviewit saa samalla kyselyllä kun repositoryn
 export const GET_REVIEWS = gql`
-  query findReview($id: ID!){
+  query findReview($id: ID!, , $first: Int, $after: String){
     repository(id: $id) {
       id
       fullName
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             id

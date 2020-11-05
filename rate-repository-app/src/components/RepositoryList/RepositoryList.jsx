@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     backgroundColor: theme.colors.mainBackGround,
-},
+  },
 });
 
 const Search = ({ setSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onChangeSearch = query => { 
+  const onChangeSearch = query => {
     setSearchQuery(query);
     setSearch(searchQuery);
   };
@@ -57,17 +57,17 @@ const Dropdown = ({ setFilter }) => {
   );
 };
 
-const Header = ( {setFilter, setSearch} ) => {
+const Header = ({ setFilter, setSearch }) => {
 
   return (
     <View style={styles.container}>
-      <Search setSearch={setSearch}/>
-      <Dropdown setFilter={setFilter}/>
+      <Search setSearch={setSearch} />
+      <Dropdown setFilter={setFilter} />
     </View>
   );
 };
 
-export const RepositoryListContainer = ({ repositories, setFilter, setSearch }) => {
+export const RepositoryListContainer = ({ repositories, setFilter, setSearch, onEndReach }) => {
   let history = useHistory();
 
   // Get the nodes from the edges array
@@ -89,18 +89,48 @@ export const RepositoryListContainer = ({ repositories, setFilter, setSearch }) 
       ListHeaderComponent={
         <Header setFilter={setFilter} setSearch={setSearch} />
       }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
 
 const RepositoryList = () => {
+  let orderBy = undefined;
+  let orderDirection = undefined; 
+
   const [filter, setFilter] = useState('latest');
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 500);
 
-  const { repositories } = useRepositories(filter, debouncedSearch);
+  
+  if (filter === 'latest') {
+    orderBy = 'CREATED_AT';
+    orderDirection = 'DESC';
+  }
 
-  return <RepositoryListContainer repositories={repositories} setFilter={setFilter} setSearch={setSearch} />;
+  if (filter === 'highestRated') {
+    orderBy = 'RATING_AVERAGE';
+    orderDirection = 'DESC';
+  }
+
+  if (filter === 'lowestRated') {
+    orderBy = 'RATING_AVERAGE';
+    orderDirection = 'ASC';
+  }
+
+  const { repositories, fetchMore } = useRepositories({orderBy, orderDirection, searchKeyword: debouncedSearch, first: 10});
+
+  const onEndReach = () => {
+    fetchMore();
+  };
+
+  return <RepositoryListContainer
+    repositories={repositories}
+    setFilter={setFilter}
+    setSearch={setSearch}
+    onEndReach={onEndReach}
+  />;
 
 };
 
