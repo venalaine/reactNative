@@ -1,13 +1,13 @@
 import { GET_REPOSITORIES } from '../graphlql/queries';
 import { useQuery } from '@apollo/react-hooks';
 
-const useRepositories = ( filter, search ) => {
+const useRepositories = ( filter, debouncedSearch ) => {
 
   if (filter === 'latest') {
 
     const { data, error, loading } = useQuery(GET_REPOSITORIES, {
       fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'CREATED_AT', orderDirection: 'DESC', searchKeyword:search }
+      variables: { orderBy: 'CREATED_AT', orderDirection: 'DESC', searchKeyword: debouncedSearch }
       // Other options
     });
 
@@ -19,7 +19,7 @@ const useRepositories = ( filter, search ) => {
 
     const { data, error, loading } = useQuery(GET_REPOSITORIES, {
       fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC', searchKeyword:search }
+      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC', searchKeyword: debouncedSearch }
       // Other options
     });
 
@@ -31,7 +31,7 @@ const useRepositories = ( filter, search ) => {
 
     const { data, error, loading } = useQuery(GET_REPOSITORIES, {
       fetchPolicy: 'cache-and-network',
-      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC', searchKeyword:search }
+      variables: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC', searchKeyword: debouncedSearch }
       // Other options
     });
 

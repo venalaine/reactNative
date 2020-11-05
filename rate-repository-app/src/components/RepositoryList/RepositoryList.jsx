@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import RNPickerSelect from 'react-native-picker-select';
 import { Searchbar } from 'react-native-paper';
 import theme from '../../theme';
+import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
@@ -95,8 +96,9 @@ export const RepositoryListContainer = ({ repositories, setFilter, setSearch }) 
 const RepositoryList = () => {
   const [filter, setFilter] = useState('latest');
   const [search, setSearch] = useState('');
+  const [debouncedSearch] = useDebounce(search, 500);
 
-  const { repositories } = useRepositories(filter, search);
+  const { repositories } = useRepositories(filter, debouncedSearch);
 
   return <RepositoryListContainer repositories={repositories} setFilter={setFilter} setSearch={setSearch} />;
 
