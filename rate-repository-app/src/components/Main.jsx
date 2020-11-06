@@ -6,6 +6,7 @@ import AppBar from './AppBar';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import AddReview from './AddReview';
+import MyReviews from './MyReviews/MyReviews';
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native';
 
@@ -36,6 +37,9 @@ const Main = () => {
                 </Route>
                 <Route path="/review">
                     <AddReview />
+                </Route>
+                <Route path="/myreviews">
+                    <MyReviews />
                 </Route>
                 <Route path="/" exact>
                     <RepositoryList />

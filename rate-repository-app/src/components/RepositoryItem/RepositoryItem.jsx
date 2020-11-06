@@ -81,22 +81,6 @@ const SingleRepoItem = () => {
 
     const { repository, loading, fetchMore } = useRepository({ id, first: 10 });
  
-    // Tälle ei ollut aiemmin hooksia, mutta tajusin, että olis syytä ehkä olla. Jätin vielä tähän, jos pitääkin palata.
-    /*
-    const { loading: repoLoading, data: repoData } = useQuery(GET_REPOSITORY, {
-        variables: { id: id },
-        fetchPolicy: 'cache-and-network',
-    });
-    
-    const { loading: reviewLoading, data: reviewData } = useQuery(GET_REVIEWS, {
-        variables: { id: id, first: 2 },
-    });
-
-    if (repoLoading || reviewLoading) {
-        return null;
-    }
-    */
-
     if (loading) {
         return null;
     }
