@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
-import { CREATE_REVIEW } from '../graphlql/mutations';
+import { CREATE_REVIEW } from '../../graphlql/mutations';
 import { useHistory } from "react-router-dom";
 import { Formik } from 'formik';
-import FormikTextInput from './FormikTextInput';
-import theme from '../theme';
+import FormikTextInput from '../FormikTextInput';
+import theme from '../../theme';
 import * as yup from 'yup';
 
 const styles = StyleSheet.create({

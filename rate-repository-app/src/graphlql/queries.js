@@ -44,6 +44,9 @@ export const GET_AUTHORIZED_USER = gql`
             rating
             createdAt
             text
+            repository {
+              id
+            }
           }
           cursor
         }
